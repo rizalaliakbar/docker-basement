@@ -15,7 +15,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     environment:
       - TZ=Asia/Makassar
-      - CLOUDFLARE_EMAIL=example@example.com
+      - CLOUDFLARE_EMAIL=example@gmail.com
       - CLOUDFLARE_DNS_API_TOKEN=examples
     labels:
       - "traefik.enable=true"
