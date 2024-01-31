@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  portainer:
+    container_name: portainer
+    restart: always
+    image: portainer/portainer-ce:latest
+    volumes:
+      - /etc/localtime:/etc/localtime
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - backend
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.portainer.entrypoints=web'
+      - 'traefik.http.routers.portainer.rule=Host(`yourdomain`)'
+      - 'traefik.http.middlewares.https-redirect.redirectscheme.scheme=https'
+      - 'traefik.http.middlewares.ssl-header.headers.customrequestheaders.X-Forwarded-Proto=https'
+      - 'traefik.http.routers.portainer.middlewares=https-redirect'
+      - 'traefik.http.routers.portainer-secure.entrypoints=websecure'
+      - 'traefik.http.routers.portainer-secure.rule=Host(`yourdomain`)'
+      - 'traefik.http.services.portainer.loadbalancer.server.port=9000'
+      - 'traefik.http.routers.portainer-secure.service=portainer'
+      - 'traefik.http.routers.portainer-secure.tls=true'
+    networks:
+      - backend
+
+volumes:
+  portainer-data:
+    driver: local
+    name: portainer-data
+    
+networks:
+  backend:
+    external: true
+      
