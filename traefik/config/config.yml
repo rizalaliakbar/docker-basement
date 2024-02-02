@@ -1,0 +1,39 @@
+http:
+  routers:
+#    proxmox:
+#      entryPoints:
+#        - websecure
+#      rule: "Host(`proxmox.yourdomain.eu.org`)"
+#      middlewares:
+#        - default-headers
+#      tls: {}
+#      service: proxmox
+      
+  middlewares:
+    https-redirect:
+      redirectScheme:
+        scheme: http
+    default-headers:
+      headers:
+        frameDeny: true
+        sslRedirect: true
+        browserXssFilter: true
+        contentTypeNosniff: true
+        forceSTSHeader: true
+        stsPreload: true
+        stsSeconds: 15552000
+        customFrameOptionsValue: SAMEORIGIN
+        customRequestHeaders:
+          X-Forwarded-Proto: https
+
+  services:
+#    proxmox:
+#      loadBalancer:
+#        servers:
+#          - url: "https://10.20.30.40:8006"
+#        passHostHeader: true
+
+    microtik:
+      loadBalancer:
+        servers:
+          - url: "https://10.20.30.40:8006"
