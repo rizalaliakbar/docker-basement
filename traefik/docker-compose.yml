@@ -13,6 +13,8 @@ services:
       - "443:443"
       # -- (Optional) Enable Dashboard, don't do in production
       # - 8080:8080
+    networks:
+      - backend
     volumes:
       - ${PWD}/config:/etc/traefik
       - traefik-ssl-certs:/ssl-certs
@@ -21,24 +23,22 @@ services:
     # -- (Optional) When using Cloudflare as Cert Resolver
     environment:
       - TZ=Asia/Makassar
-      - CLOUDFLARE_EMAIL=rizalaliakbar.business@gmail.com
-      - CLOUDFLARE_DNS_API_TOKEN=nDhwpVb4Mbh2nHBiC_utWdbONnQ18-q8SwCVUZkd
+      - CLOUDFLARE_EMAIL=example@gmail.com
+      - CLOUDFLARE_DNS_API_TOKEN=yourtoken
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.traefik.entrypoints=web"
-      - "traefik.http.routers.traefik.rule=Host(`traefik.rizalaliakbar.eu.org`)"
+      - "traefik.http.routers.traefik.rule=Host(`traefik.yourdomain.eu.org`)"
       - "traefik.http.middlewares.https-redirect.redirectscheme.scheme=https"
       - "traefik.http.middlewares.ssl-header.headers.customrequestheaders.X-Forwarded-Proto=https>"
       - "traefik.http.routers.traefik.middlewares=https-redirect"
       - "traefik.http.routers.traefik-secure.entrypoints=websecure"
-      - "traefik.http.routers.traefik-secure.rule=Host(`traefik.rizalaliakbar.eu.org`)"
+      - "traefik.http.routers.traefik-secure.rule=Host(`traefik.yourdomain.eu.org`)"
       - "traefik.http.routers.traefik-secure.tls=true"
       - "traefik.http.routers.traefik-secure.tls.certresolver=cloudflare"
-      - "traefik.http.routers.traefik-secure.tls.domains[0].main=rizalaliakbar.eu.org"
-      - "traefik.http.routers.traefik-secure.tls.domains[0].sans=*.rizalaliakbar.eu.org"
+      - "traefik.http.routers.traefik-secure.tls.domains[0].main=yourdomain.eu.org"
+      - "traefik.http.routers.traefik-secure.tls.domains[0].sans=*.yourdomain.eu.org"
       - "traefik.http.routers.traefik-secure.service=api@internal"
-    networks:
-      - backend
 
 volumes:
   traefik-ssl-certs:
