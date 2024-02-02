@@ -5,12 +5,12 @@ version: '3'
 #     external: true
 services:
   traefik:
-    image: traefik:latest
-    container_name: traefik
+    image: "traefik:latest"
+    container_name: "traefik"
     restart: always
     ports:
-      - 80:80
-      - 443:443
+      - "80:80"
+      - "443:443"
       # -- (Optional) Enable Dashboard, don't do in production
       # - 8080:8080
     volumes:
