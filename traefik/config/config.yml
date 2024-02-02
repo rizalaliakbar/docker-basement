@@ -11,7 +11,7 @@ http:
     mikrotik:
       entryPoints:
         - websecure
-      rule: "(`mikrotik.yourdomain.eu.org`)"
+      rule: "Host(`mikrotik.yourdomain.eu.org`)"
       tls: {}
       service: mikrotik
 
