@@ -28,7 +28,7 @@ services:
       - "traefik.http.routers.traefik.entrypoints=web"
       - "traefik.http.routers.traefik.rule=Host(`traefik.rizalaliakbar.eu.org`)"
       - "traefik.http.middlewares.https-redirect.redirectscheme.scheme=https"
-      - "traefik.http.middlewares.ssl-header.headers.customrequestheaders.X-Forwarded-Proto=htt>
+      - "traefik.http.middlewares.ssl-header.headers.customrequestheaders.X-Forwarded-Proto=https>"
       - "traefik.http.routers.traefik.middlewares=https-redirect"
       - "traefik.http.routers.traefik-secure.entrypoints=websecure"
       - "traefik.http.routers.traefik-secure.rule=Host(`traefik.rizalaliakbar.eu.org`)"
