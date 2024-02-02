@@ -8,7 +8,13 @@ http:
 #        - default-headers
 #      tls: {}
 #      service: proxmox
-      
+    mikrotik:
+      entryPoints:
+        - websecure
+      rule: "(`mikrotik.yourdomain.eu.org`)"
+      tls: {}
+      service: mikrotik
+
   middlewares:
     https-redirect:
       redirectScheme:
