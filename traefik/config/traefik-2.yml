@@ -16,7 +16,7 @@ serversTransport:
 certificatesResolvers:
   cloudflare:
     acme:
-      email: your@email.com
+      email: rizalaliakbar.business@gmail.com
       storage: /ssl-certs/acme.json
       #caServer: "https://acme-staging-v02.api.letsencrypt.org/directory"
       dnsChallenge:
