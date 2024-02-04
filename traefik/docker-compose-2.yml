@@ -1,8 +1,5 @@
 version: '3'
-# -- (Optional) When using a custom network
-# networks:
-#   your-traefik-network:
-#     external: true
+
 services:
   traefik:
     image: traefik:latest
@@ -22,25 +19,25 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - /home/ubuntu/docker/traefik/traefik.yml:/traefik.yml:ro
-      - /home/ubuntu/docker/traefik/acme.json:/acme.json
-      - /home/ubuntu/docker/traefik/config.yml:/config.yml:ro
-      - /home/ubuntu/docker/traefik/logs:/var/log/traefik
+      - /root/docker-basement/mydir/traefik/traefik.yml:/traefik.yml:ro
+      - /root/docker-basement/mydir/traefik/acme.json:/acme.json
+      - /root/docker-basement/mydir/traefik/config.yml:/config.yml:ro
+      - /root/docker-basement/mydir/traefik/logs:/var/log/traefik
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.traefik.entrypoints=http"
-      - "traefik.http.routers.traefik.rule=Host(`traefik-dashboard.yourdomain.co.uk`)"
+      - "traefik.http.routers.traefik.rule=Host(`traefik.yourdomain.eu.org`)"
       - "traefik.http.middlewares.traefik-auth.basicauth.users=YOUR_USERNAME_PASSWORD"
       - "traefik.http.middlewares.traefik-https-redirect.redirectscheme.scheme=https"
       - "traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https"
       - "traefik.http.routers.traefik.middlewares=traefik-https-redirect"
       - "traefik.http.routers.traefik-secure.entrypoints=https"
-      - "traefik.http.routers.traefik-secure.rule=Host(`traefik-dashboard.yourdomain.co.uk`)"
+      - "traefik.http.routers.traefik-secure.rule=Host(`traefik.yourdomain.eu.org`)"
       - "traefik.http.routers.traefik-secure.middlewares=traefik-auth"
       - "traefik.http.routers.traefik-secure.tls=true"
       - "traefik.http.routers.traefik-secure.tls.certresolver=cloudflare"
-      - "traefik.http.routers.traefik-secure.tls.domains[0].main=yourdomain.co.uk"
-      - "traefik.http.routers.traefik-secure.tls.domains[0].sans=*.yourdomain.co.uk"
+      - "traefik.http.routers.traefik-secure.tls.domains[0].main=yourdomain.eu.org"
+      - "traefik.http.routers.traefik-secure.tls.domains[0].sans=*.yourdomain.eu.org"
       - "traefik.http.routers.traefik-secure.service=api@internal"
 
 networks:
