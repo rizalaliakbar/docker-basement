@@ -1,0 +1,50 @@
+version: '3'
+# -- (Optional) When using a custom network
+# networks:
+#   your-traefik-network:
+#     external: true
+services:
+  traefik:
+    image: "traefik:latest"
+    container_name: "traefik"
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+      # -- (Optional) Enable Dashboard, don't do in production
+      # - 8080:8080
+    networks:
+      - backend
+    volumes:
+      - ${PWD}/config:/etc/traefik
+      - traefik-ssl-certs:/ssl-certs
+      - /etc/localtime:/etc/localtime
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    # -- (Optional) When using Cloudflare as Cert Resolver
+    environment:
+      - TZ=Asia/Makassar
+      - CLOUDFLARE_EMAIL=example@gmail.com
+      - CLOUDFLARE_DNS_API_TOKEN=yourtoken
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.traefik.entrypoints=web"
+      - "traefik.http.routers.traefik.rule=Host(`traefik.yourdomain.eu.org`)"
+      - "traefik.http.middlewares.https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.middlewares.ssl-header.headers.customrequestheaders.X-Forwarded-Proto=https>"
+      - "traefik.http.routers.traefik.middlewares=https-redirect"
+      - "traefik.http.routers.traefik-secure.entrypoints=websecure"
+      - "traefik.http.routers.traefik-secure.rule=Host(`traefik.yourdomain.eu.org`)"
+      - "traefik.http.routers.traefik-secure.tls=true"
+      - "traefik.http.routers.traefik-secure.tls.certresolver=cloudflare"
+      - "traefik.http.routers.traefik-secure.tls.domains[0].main=yourdomain.eu.org"
+      - "traefik.http.routers.traefik-secure.tls.domains[0].sans=*.yourdomain.eu.org"
+      - "traefik.http.routers.traefik-secure.service=api@internal"
+
+volumes:
+  traefik-ssl-certs:
+    driver: local
+    name: traefik-ssl-certs
+
+networks:
+  backend:
+    external: true
