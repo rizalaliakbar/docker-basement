@@ -22,6 +22,7 @@ services:
       - "traefik.http.services.portainer.loadbalancer.server.port=9000"
       - "traefik.http.routers.portainer-secure.service=portainer"
       - "traefik.http.routers.portainer-secure.tls=true"
+      - "traefik.docker.network=backend"
 
 volumes:
   portainer-data:
