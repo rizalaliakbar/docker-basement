@@ -14,7 +14,7 @@ services:
       - "443:443"
     environment:
       - CF_API_EMAIL=rizalaliakbar.business@gmail.com
-      - CF_DNS_API_TOKEN=nDhwpVb4Mbh2nHBiC_utWdbONnQ18-q8SwCVUZkd
+      - CF_DNS_API_TOKEN=q97MG9QZV1mbjbITYo79s7xrB-U6_j6WiygLpRxB
       # - CF_API_KEY=YOU_API_KEY
     volumes:
       - ${PWD}/config:/etc/traefik
