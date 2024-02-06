@@ -23,7 +23,7 @@ services:
     # -- (Optional) When using Cloudflare as Cert Resolver
     environment:
       - TZ=Asia/Makassar
-      - CLOUDFLARE_EMAIL=example@gmail.com
+      - CLOUDFLARE_EMAIL=your@gmail.com
       - CLOUDFLARE_DNS_API_TOKEN=yourtoken
     labels:
       - "traefik.enable=true"
