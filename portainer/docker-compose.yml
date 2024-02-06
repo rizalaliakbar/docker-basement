@@ -28,8 +28,7 @@ volumes:
   portainer-data:
     driver: local
     name: portainer-data
-    
+
 networks:
   backend:
     external: true
-      
