@@ -14,7 +14,7 @@ services:
       - "8181:80"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.mikhmon.rule=Host(`mikhmon.zilnet.eu.org`)"
+      - "traefik.http.routers.mikhmon.rule=Host(`mikhmon.yourdomain.eu.org`)"
       - "traefik.http.routers.mikhmon.entrypoints=websecure"
       - "traefik.docker.network=backend"
 
