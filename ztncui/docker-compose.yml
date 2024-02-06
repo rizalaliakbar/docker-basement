@@ -16,7 +16,7 @@ services:
       - HTTPS_PORT=3443
       - ZTNCUI_PASSWD=password  #change this
       - MYDOMAIN=zt.zilnet.eu.org #change this to the domain you want to use for the controller
-      - MYADDR=12.34.56.78 #this is optional. if you use it, this is the public IP your ISP gave you
+      #- MYADDR=12.34.56.78 #this is optional. if you use it, this is the public IP your ISP gave you
     volumes:
       - ztncui:/opt/key-networks/ztncui/etc
       - zt1:/var/lib/zerotier-one
