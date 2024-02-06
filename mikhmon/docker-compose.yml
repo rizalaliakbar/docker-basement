@@ -9,20 +9,14 @@ services:
       #- /etc/localtime:/etc/localtime
       #- /var/run/docker.sock:/var/run/docker.sock
     networks:
-      - frontend
+      - backend
+    ports:
+      - "8181:80"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.mikhmon.entrypoints=web"
-      - "traefik.http.routers.mikhmon.rule=Host(`mikhmon.yourdomain.eu.org`)""
-      - "traefik.http.middlewares.https-redirect.redirectscheme.scheme=https"
-      - "traefik.http.middlewares.ssl-header.headers.customrequestheaders.X-Forwarded-Proto=https"
-      - "traefik.http.routers.mikhmon.middlewares=https-redirect"
-      - "traefik.http.routers.mikhmon-secure.entrypoints=websecure"
-      - "traefik.http.routers.mikhmon-secure.rule=Host(`mikhmon.yourdomain.eu.org`)"
-      - "traefik.http.services.mikhmon.loadbalancer.server.port=8181"
-      - "traefik.http.routers.mikhmon-secure.service=mikhmon"
-      - "traefik.http.routers.mikhmon-secure.tls=true"
-      - "traefik.docker.network=fronend"
+      - "traefik.http.routers.mikhmon.rule=Host(`mikhmon.zilnet.eu.org`)"
+      - "traefik.http.routers.mikhmon.entrypoints=websecure"
+      - "traefik.docker.network=backend"
 
 #volumes:
 #  mikhmon-data:
@@ -30,5 +24,5 @@ services:
 #    name: mikhmon-data
 
 networks:
-  frontend:
+  backend:
     external: true
