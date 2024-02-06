@@ -1,0 +1,34 @@
+version: '3'
+
+services:
+  mikhmon:
+    container_name: mikhmon
+    restart: always
+    image: naufkia/mikhmonv3
+    #volumes:
+      #- /etc/localtime:/etc/localtime
+      #- /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - frontend
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.mikhmon.entrypoints=web"
+      - "traefik.http.routers.mikhmon.rule=Host(`mikhmon.yourdomain.eu.org`)""
+      - "traefik.http.middlewares.https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.middlewares.ssl-header.headers.customrequestheaders.X-Forwarded-Proto=https"
+      - "traefik.http.routers.mikhmon.middlewares=https-redirect"
+      - "traefik.http.routers.mikhmon-secure.entrypoints=websecure"
+      - "traefik.http.routers.mikhmon-secure.rule=Host(`mikhmon.yourdomain.eu.org`)"
+      - "traefik.http.services.mikhmon.loadbalancer.server.port=8181"
+      - "traefik.http.routers.mikhmon-secure.service=mikhmon"
+      - "traefik.http.routers.mikhmon-secure.tls=true"
+      - "traefik.docker.network=fronend"
+
+#volumes:
+#  mikhmon-data:
+#    driver: local
+#    name: mikhmon-data
+
+networks:
+  frontend:
+    external: true
