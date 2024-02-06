@@ -11,19 +11,17 @@ services:
     networks:
       - backend
     labels:
-      - 'traefik.enable=true'
-      - 'traefik.http.routers.portainer.entrypoints=web'
-      - 'traefik.http.routers.portainer.rule=Host(`yourdomain`)'
-      - 'traefik.http.middlewares.https-redirect.redirectscheme.scheme=https'
-      - 'traefik.http.middlewares.ssl-header.headers.customrequestheaders.X-Forwarded-Proto=https'
-      - 'traefik.http.routers.portainer.middlewares=https-redirect'
-      - 'traefik.http.routers.portainer-secure.entrypoints=websecure'
-      - 'traefik.http.routers.portainer-secure.rule=Host(`yourdomain`)'
-      - 'traefik.http.services.portainer.loadbalancer.server.port=9000'
-      - 'traefik.http.routers.portainer-secure.service=portainer'
-      - 'traefik.http.routers.portainer-secure.tls=true'
-    networks:
-      - backend
+      - "traefik.enable=true"
+      - "traefik.http.routers.portainer.entrypoints=web"
+      - "traefik.http.routers.portainer.rule=Host(`portainer.yourdomain.eu.org`)""
+      - "traefik.http.middlewares.https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.middlewares.ssl-header.headers.customrequestheaders.X-Forwarded-Proto=https"
+      - "traefik.http.routers.portainer.middlewares=https-redirect"
+      - "traefik.http.routers.portainer-secure.entrypoints=websecure"
+      - "traefik.http.routers.portainer-secure.rule=Host(`portainer.yourdomain.eu.org`)"
+      - "traefik.http.services.portainer.loadbalancer.server.port=9000"
+      - "traefik.http.routers.portainer-secure.service=portainer"
+      - "traefik.http.routers.portainer-secure.tls=true"
 
 volumes:
   portainer-data:
