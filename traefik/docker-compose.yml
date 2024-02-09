@@ -1,4 +1,3 @@
----
 # -- (Optional) When using a custom network
 volumes:
   traefik-ssl-certs:
@@ -16,8 +15,6 @@ services:
     ports:
       - "80:80"
       - "443:443"
-      # -- (Optional) Enable Dashboard, don't do in production
-      # - 8080:8080
     volumes:
       - ${PWD}/config:/etc/traefik
       - traefik-ssl-certs:/ssl-certs
