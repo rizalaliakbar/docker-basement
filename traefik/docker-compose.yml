@@ -43,4 +43,4 @@ services:
       - "traefik.http.routers.traefik-secure.service=api@internal"
     networks:
       - frontend
-    restart: unless-stopped
+    restart: always
