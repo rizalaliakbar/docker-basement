@@ -35,7 +35,7 @@ entryPoints:
     address: ":443"
   # -- (Optional) Add custom Entrypoint
   # custom:
-  #   address: :8080
+  #   address: custom
 
 # -- Configure your CertificateResolver here...
 certificatesResolvers:
@@ -44,10 +44,10 @@ certificatesResolvers:
       email: rizalaliakbar.business@gmail.com
       storage: /ssl-certs/acme.json
       caServer: "https://acme-staging-v02.api.letsencrypt.org/directory"
-#       -- (Optional) Remove this section, when using DNS Challenge
+      # -- (Optional) Remove this section, when using DNS Challenge
       httpChallenge:
         entryPoint: web
-#       -- (Optional) Configure DNS Challenge
+      # -- (Optional) Configure DNS Challenge
       dnsChallenge:
         provider: cloudflare
         resolvers:
@@ -58,10 +58,10 @@ certificatesResolvers:
       email: rizalaliakbar.business@gmail.com
       storage: /ssl-certs/acme.json
       caServer: "https://acme-v02.api.letsencrypt.org/directory"
-#       -- (Optional) Remove this section, when using DNS Challenge
+      # -- (Optional) Remove this section, when using DNS Challenge
       httpChallenge:
         entryPoint: web
-#       -- (Optional) Configure DNS Challenge
+      # -- (Optional) Configure DNS Challenge
       dnsChallenge:
         provider: cloudflare
         resolvers:
@@ -69,8 +69,8 @@ certificatesResolvers:
           - "8.8.8.8:53"
 
 # -- (Optional) Disable TLS Cert verification check
-# serversTransport:
-#   insecureSkipVerify: true
+serversTransport:
+  insecureSkipVerify: true
 
 # -- (Optional) Overwrite Default Certificates
 # tls:
