@@ -24,15 +24,15 @@ api:
 # -- Change EntryPoints here...
 entryPoints:
   web:
-    address: :80
+    address: ":80"
     # -- (Optional) Redirect all HTTP to HTTPS
-    # http:
-    #   redirections:
-    #     entryPoint:
-    #       to: websecure
-    #       scheme: https
+    http:
+      redirections:
+        entryPoint:
+          to: websecure
+          scheme: https
   websecure:
-    address: :443
+    address: ":443"
   # -- (Optional) Add custom Entrypoint
   # custom:
   #   address: :8080
