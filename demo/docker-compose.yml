@@ -4,11 +4,8 @@ services:
   traefik:
     image: "traefik:latest"
     container_name: "traefik"
-    restart: always
     security_opt:
       - no-new-privileges:true
-    networks:
-      frontend:
     ports:
       - "80:80"
       - "443:443"
@@ -36,6 +33,9 @@ services:
       - "traefik.http.routers.traefik-secure.tls.domains[0].main=zilnet.eu.org"
       - "traefik.http.routers.traefik-secure.tls.domains[0].sans=*.zilnet.eu.org"
       - "traefik.http.routers.traefik-secure.service=api@internal"
+    restart: always
+    networks:
+      frontend:
 
 volumes:
   traefik-ssl-certs:
