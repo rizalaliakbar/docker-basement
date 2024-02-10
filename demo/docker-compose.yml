@@ -1,0 +1,47 @@
+version: '3'
+
+services:
+  traefik:
+    image: "traefik:latest"
+    container_name: "traefik"
+    restart: always
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      frontend:
+    ports:
+      - "80:80"
+      - "443:443"
+    env_file: .env
+    environment:
+      - "CF_API_EMAIL=${CF_API_EMAIL}"
+      - "CF_DNS_API_TOKEN=${CF_DNS_API_TOKEN}"
+      # - CF_API_KEY=YOU_API_KEY
+    volumes:
+      - ${PWD}/config:/etc/traefik
+      - traefik-ssl-certs:/ssl-certs
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.traefik.entrypoints=web"
+      - "traefik.http.routers.traefik.rule=Host(`traefik.zilnet.eu.org`)"
+      - "traefik.http.middlewares.traefik-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https"
+      - "traefik.http.routers.traefik.middlewares=traefik-https-redirect"
+      - "traefik.http.routers.traefik-secure.entrypoints=websecure"
+      - "traefik.http.routers.traefik-secure.rule=Host(`traefik.zilnet.eu.org`)"
+      - "traefik.http.routers.traefik-secure.tls=true"
+      - "traefik.http.routers.traefik-secure.tls.certresolver=cloudflare"
+      - "traefik.http.routers.traefik-secure.tls.domains[0].main=zilnet.eu.org"
+      - "traefik.http.routers.traefik-secure.tls.domains[0].sans=*.zilnet.eu.org"
+      - "traefik.http.routers.traefik-secure.service=api@internal"
+
+volumes:
+  traefik-ssl-certs:
+    driver: local
+    name: traefik-ssl-certs
+
+networks:
+  frontend:
+    external: true
